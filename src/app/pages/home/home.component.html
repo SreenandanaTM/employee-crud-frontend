@@ -3,6 +3,8 @@
         <h1>Employee Management System</h1>
 
     </div>
+                    <kendo-textbox (input)="search($event)" placeholder="Search by name"></kendo-textbox>
+
 
     <div class="form-container">
         <h2>{{empId?'Update Employee':'Add employee'}}</h2>

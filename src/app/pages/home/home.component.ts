@@ -1,11 +1,13 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
 import { AllApiService } from '../../services/all-api.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { KENDO_TEXTBOX } from '@progress/kendo-angular-inputs';
+import { debounceTime, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule,KENDO_TEXTBOX],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -13,6 +15,7 @@ export class HomeComponent {
 
   allEmployees = signal<any[]>([]);
   empId:any=null;
+  searchText=new Subject<string>()
 
 
   fb = inject(FormBuilder)
@@ -36,6 +39,7 @@ export class HomeComponent {
 
   ngOnInit() {
     this.getAllEmp();
+    this.searchEmp()
   }
 
   getAllEmp() {
@@ -122,6 +126,20 @@ export class HomeComponent {
       }
     })
 
+  }
+
+  searchEmp(){
+    this.searchText.pipe(debounceTime(500)).subscribe(value=>{
+    this.api.searchEmpAPI(value).subscribe((res:any)=>{
+      this.allEmployees.set(res)
+    })
+    })
+  }
+
+  search(event:any){
+    this.searchText.next(event.target.value)
+    console.log(event.target.value);
+    
   }
 
   removeEmp(id:any){

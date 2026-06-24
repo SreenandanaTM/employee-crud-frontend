@@ -35,4 +35,8 @@ export class AllApiService {
   removeEmpAPI(id:any){
     return this.http.delete(`${this.serverURL}/remove-emp/${id}`)
   }
+  // search employee by name
+  searchEmpAPI(text:string){
+    return this.http.get(`${this.serverURL}/all-emp?search=${text}`)
+  }
 }

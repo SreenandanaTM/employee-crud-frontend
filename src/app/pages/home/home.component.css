@@ -147,3 +147,8 @@ input{
 .btn-add:hover{
     background:#0b5ed7;
 }
+kendo-textbox{
+   
+    align-items: center;
+    width: 300px;
+}

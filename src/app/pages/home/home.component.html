@@ -1,0 +1,64 @@
+<div class="container">
+    <div class="header">
+        <h1>Employee Management System</h1>
+
+    </div>
+
+    <div class="form-container">
+        <h2>{{empId?'Update Employee':'Add employee'}}</h2>
+        <form [formGroup]="employeeForm">
+            <input type="text" placeholder="Employee ID" formControlName="id" name="id">
+            <input type="text" placeholder="Employee Name" formControlName="name" name="name">
+            <input type="text" placeholder="Employee Email" formControlName="email" name="email">
+            <input type="text" placeholder="Employee Phone" formControlName="phone" name="phone">
+            <input type="text" placeholder="Employee Department" formControlName="department" name="department">
+            <input type="text" placeholder="Employee Designation" formControlName="designation" name="designation">
+            <input type="text" placeholder="Employee Salary" formControlName="salary" name="salary">
+            <input type="text" placeholder="Employee Location" formControlName="location" name="location">
+            <button class="btn-add" type="button" (click)="saveEmpDetails()">{{empId?'Update':'Add'}}</button>
+
+
+        </form>
+    </div>
+    <div class="card">
+        <div class="table-header">
+            <h2>Employee List</h2>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Department</th>
+                    <th>Designation</th>
+                    <th>Salary</th>
+                    <th>Location</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @for(emp of allEmployees();track emp.id){
+                <tr>
+                    <td>{{emp.id}}</td>
+                    <td>{{emp.name}}</td>
+                    <td>{{emp.email}}</td>
+                    <td>{{emp.phone}}</td>
+                    <td>{{emp.department}}</td>
+                    <td>{{emp.designation}}</td>
+                    <td>{{emp.salary}}</td>
+                    <td>{{emp.location}}</td>
+                    <td>
+                        <button (click)="getEmpDetails(emp.id)"  class="btn-update">Update</button>
+                        <button type="button" (click)="removeEmp(emp.id)" class="btn-delete">Delete</button>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+</div>

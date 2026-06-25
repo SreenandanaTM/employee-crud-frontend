@@ -1,0 +1,5 @@
+@import  "@progress/kendo-theme-classic/dist/classic-main-dark.css";
+
+::ng-deep .k-grid {
+    background:darksalmon !important ;
+}

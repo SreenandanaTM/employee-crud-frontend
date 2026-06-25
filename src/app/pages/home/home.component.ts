@@ -2,12 +2,14 @@ import { Component, inject, signal, OnInit } from '@angular/core';
 import { AllApiService } from '../../services/all-api.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { KENDO_TEXTBOX } from '@progress/kendo-angular-inputs';
+import { GridDataResult, KENDO_GRID } from '@progress/kendo-angular-grid';
 import { debounceTime, Subject } from 'rxjs';
+import { ButtonsModule } from '@progress/kendo-angular-buttons';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ReactiveFormsModule,KENDO_TEXTBOX],
+  imports: [ReactiveFormsModule,KENDO_TEXTBOX,KENDO_GRID,ButtonsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -16,6 +18,13 @@ export class HomeComponent {
   allEmployees = signal<any[]>([]);
   empId:any=null;
   searchText=new Subject<string>()
+  gridData=signal<GridDataResult>({
+    data:[],
+    total:0
+  })
+  pageSize=10;
+  skip=0;
+  
 
 
   fb = inject(FormBuilder)
@@ -39,7 +48,8 @@ export class HomeComponent {
 
   ngOnInit() {
     this.getAllEmp();
-    this.searchEmp()
+    this.searchEmp();
+    this.loadEmployees();
   }
 
   getAllEmp() {
@@ -115,6 +125,7 @@ export class HomeComponent {
       next:(res:any)=>{
         console.log(res);
         alert("Employee updated successfully")
+        this.loadEmployees()
         this.empId=null;
         this.employeeForm.reset()
         this.getAllEmp();
@@ -147,6 +158,7 @@ export class HomeComponent {
       next:(res:any)=>{
         console.log(res);
         alert(res)
+        this.loadEmployees()
         this.getAllEmp();
         
       },
@@ -155,6 +167,27 @@ export class HomeComponent {
         
       }
     })
+  }
+
+
+  loadEmployees(){
+    const page=this.skip/this.pageSize+1;
+    console.log(page,this.pageSize);
+    
+    this.api.paginationAPI(page,this.pageSize).subscribe((res:any)=>{
+      console.log(res);
+      
+     
+     this.gridData.set({
+      data:res.data,
+      total:res.total
+     });
+    });
+  }
+
+  pageChange(event:any){
+    this.skip=event.skip;
+    this.loadEmployees()
   }
 
 }

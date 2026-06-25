@@ -39,4 +39,9 @@ export class AllApiService {
   searchEmpAPI(text:string){
     return this.http.get(`${this.serverURL}/all-emp?search=${text}`)
   }
+
+  // pagination api
+  paginationAPI(page:number,limit:number){
+    return this.http.get(`${this.serverURL}/pagination?page=${page}&limit=${limit}`)
+  }
 }

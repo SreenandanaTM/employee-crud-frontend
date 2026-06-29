@@ -44,4 +44,9 @@ export class AllApiService {
   paginationAPI(page:number,limit:number){
     return this.http.get(`${this.serverURL}/pagination?page=${page}&limit=${limit}`)
   }
+
+  // import excel file api
+  importExcelAPI(data:any){
+    return this.http.post(`${this.serverURL}/import-excel`,data)
+  }
 }

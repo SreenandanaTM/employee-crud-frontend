@@ -18,6 +18,7 @@
             <button class="btn-add" type="button" (click)="saveEmpDetails()">{{empId?'Update':'Add'}}</button>
 
 
+
         </form>
     </div>
     <div class="card">
@@ -60,7 +61,12 @@
                 }
             </tbody>
         </table> -->
+
+        <button id="import" (click)="fileInput.click()">Import File</button>
+        <input #fileInput type="file" hidden accept=".xlsx,.xls" (change)="onFileSelected($event)">
+
         <kendo-textbox (input)="search($event)" placeholder="Search by name"></kendo-textbox>
+
 
 
         <!-- kendo grid -->

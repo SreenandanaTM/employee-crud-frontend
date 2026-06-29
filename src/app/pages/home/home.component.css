@@ -164,3 +164,11 @@ kendo-textbox{
     background-color:rgb(136, 14, 14);
      margin: 5px;
 }
+
+#import{
+    background-color:rgb(189, 189, 57);
+    border-radius: 10px;
+    border: none;
+    padding: 8px;
+    margin: 5px;
+}

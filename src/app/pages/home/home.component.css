@@ -155,3 +155,12 @@ kendo-textbox{
 .k-grid {
     background:darksalmon !important ;
 }
+
+#update{
+    background-color: rgb(8, 83, 8);
+    margin: 5px;
+}
+#delete{
+    background-color:rgb(136, 14, 14);
+     margin: 5px;
+}

@@ -12,9 +12,14 @@ export class AllApiService {
 
 
   // get all employees
-  // getAllEmpAPI(){
-  //   return this.http.get(`${this.serverURL}/all-emp`)
-  // }
+  getAllEmpAPI(){
+    return this.http.get(`${this.serverURL}/all-emp`)
+  }
+
+  // get all employees for exporting
+  getAllEmployeesAPI(){
+    return this.http.get(`${this.serverURL}/getAllEmp`)
+  }
 
   // add employee
   addEmpAPI(body:any){

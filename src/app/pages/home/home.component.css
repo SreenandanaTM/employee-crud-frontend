@@ -157,16 +157,30 @@ kendo-textbox{
 }
 
 #update{
-    background-color: rgb(8, 83, 8);
+    background-color: rgb(23, 88, 23);
     margin: 5px;
 }
 #delete{
-    background-color:rgb(136, 14, 14);
+    background-color:rgb(114, 19, 19);
      margin: 5px;
 }
 
 #import{
     background-color:rgb(189, 189, 57);
+    border-radius: 10px;
+    border: none;
+    padding: 8px;
+    margin: 5px;
+}
+#excelExp{
+    background-color:rgb(57, 141, 189);
+    border-radius: 10px;
+    border: none;
+    padding: 8px;
+    margin: 5px;
+}
+#pdfExp{
+    background-color:rgb(196, 153, 60);
     border-radius: 10px;
     border: none;
     padding: 8px;

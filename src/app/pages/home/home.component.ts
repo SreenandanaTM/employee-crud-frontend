@@ -1,8 +1,9 @@
-import { Component, inject, signal, OnInit } from '@angular/core';
+import { Component, inject, signal, OnInit, ViewChild } from '@angular/core';
 import { AllApiService } from '../../services/all-api.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { KENDO_TEXTBOX } from '@progress/kendo-angular-inputs';
-import { GridDataResult, KENDO_GRID } from '@progress/kendo-angular-grid';
+import { GridComponent, GridDataResult, KENDO_GRID, KENDO_GRID_EXCEL_EXPORT, KENDO_GRID_PDF_EXPORT } from '@progress/kendo-angular-grid';
+import { ExcelExportData } from '@progress/kendo-angular-excel-export';
 import { debounceTime, Subject } from 'rxjs';
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
 import *as XLSX from 'xlsx';
@@ -10,13 +11,15 @@ import *as XLSX from 'xlsx';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ReactiveFormsModule, KENDO_TEXTBOX, KENDO_GRID, ButtonsModule],
+  imports: [ReactiveFormsModule, KENDO_TEXTBOX, KENDO_GRID, ButtonsModule,KENDO_GRID_EXCEL_EXPORT,KENDO_GRID_PDF_EXPORT],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
 
-  // allEmployees = signal<any[]>([]);
+  @ViewChild('grid')
+  grid!:GridComponent
+  allEmployees = signal<any[]>([]);
   empId: any = null;
   searchText = new Subject<string>()
   gridData = signal<GridDataResult>({
@@ -49,22 +52,23 @@ export class HomeComponent {
 
 
   ngOnInit() {
-    // this.getAllEmp();
+    this.getAllEmp();
     this.searchEmp();
     this.loadEmployees();
   }
 
-  // getAllEmp() {
-  //   this.api.getAllEmpAPI().subscribe({
-  //     next: (res: any) => {
-  //       this.allEmployees.set(res);
-  //     },
-  //     error: (err) => {
-  //       console.log(err);
+  getAllEmp() {
+    this.api.getAllEmployeesAPI().subscribe({
+      next: (res: any) => {
+        // console.log(res);
+        this.allEmployees.set(res);
+      },
+      error: (err) => {
+        console.log(err);
 
-  //     }
-  //   })
-  // }
+      }
+    })
+  }
 
 
 
@@ -179,11 +183,11 @@ export class HomeComponent {
 
   // load employees after pagination
   loadEmployees() {
-    console.log("inside loademployees");
+    // console.log("inside loademployees");
     const page = this.skip / this.pageSize + 1;
-    console.log(page, this.pageSize);
+    // console.log(page, this.pageSize);
     this.api.paginationAPI(page, this.pageSize).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       this.gridData.set({
         data: res.data,
         total: res.total
@@ -221,6 +225,38 @@ export class HomeComponent {
     }
   
   }
+
+
+  // excel export
+  public allData=():ExcelExportData=>{
+    return{
+      data:this.allEmployees()
+    }
+  }
+
+  // pdf export
+ exportPDF(){
+  const currentSkip=this.skip
+  const currentPageSize=this.pageSize
+  const currentData=this.gridData()
+  console.log(currentData);
+  this.skip=0
+  this.pageSize=this.allEmployees().length
+  
+  this.gridData.set({
+    data:this.allEmployees(),
+    total:this.allEmployees().length
+  })
+  console.log(this.gridData().data);
+  console.log(this.gridData().data.length);
+  
+  setTimeout(()=>{
+    this.grid.saveAsPDF()
+    this.skip=currentSkip
+    this.pageSize=currentPageSize
+    this.gridData.set(currentData)
+  },0)
+ }
 
 }
 

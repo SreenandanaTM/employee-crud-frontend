@@ -154,6 +154,7 @@ kendo-textbox{
 }
 .k-grid {
     background:darksalmon !important ;
+    margin-bottom: 150px;
 }
 
 #update{
@@ -186,3 +187,7 @@ kendo-textbox{
     padding: 8px;
     margin: 5px;
 }
+.whole-cell {
+        display: block;
+        padding: 11px 10px; /* depends on theme */
+      }

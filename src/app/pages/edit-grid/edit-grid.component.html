@@ -1,0 +1,51 @@
+<!-- Editable Grid -->
+
+<h1>Editable Grid </h1>
+<kendo-grid [kendoGridReactiveEditing]="createFormGroup" [height]="700" [filterable]="true" [pageSize]="10" [pageable]="true" [sortable]="true"
+    [kendoGridBinding]="allEmployees()">
+    <ng-template kendoGridToolbarTemplate>
+                <button kendoGridAddCommand>Add new</button>
+        <button type="button" kendoGridExcelCommand [svgIcon]="fileExcelIcon">
+            Export to Excel
+        </button>
+          <button kendoGridPDFCommand [svgIcon]="filePdfIcon">
+          Export to PDF
+        </button>
+    </ng-template>
+    <kendo-grid-column [filterable]="false" editor="numeric" field="id" title="Employee ID" [width]="80"
+        editor="numeric"></kendo-grid-column>
+    <kendo-grid-column [filterable]="false" editor="text" field="name" title="Name " [width]="120" editor="text"></kendo-grid-column>
+    <kendo-grid-column [filterable]="false" editor="text" field="email" title="Email" [width]="120"></kendo-grid-column>
+    <kendo-grid-column [filterable]="false" editor="text" field="phone" title="Phone" [width]="120"></kendo-grid-column>
+    <kendo-grid-column field="department" editor="text" title="Department" [width]="120"></kendo-grid-column>
+    <kendo-grid-column [filterable]="false" editor="text" field="designation" title="Designation" [width]="120"></kendo-grid-column>
+    <kendo-grid-column [filterable]="false" editor="numeric" field="salary" title="Salary" [width]="120"></kendo-grid-column>
+    <kendo-grid-column field="location"  editor="text" title="Location" [width]="120"></kendo-grid-column>
+    <kendo-grid-column [filterable]="false" editor="text" field="status" title="Status" [width]="120">
+        <ng-template kendoGridCellTemplate let-dataItem>
+            <span class="whole-cell" [style.backgroundColor]="statusColor(dataItem.status)">
+                {{ dataItem.status }}
+            </span>
+        </ng-template>
+    </kendo-grid-column>
+
+
+    <kendo-grid-command-column [width]="220"> 
+    <ng-template kendoGridCellTemplate let-isNew="isNew">
+    <button kendoGridEditCommand themeColor="primary">Edit</button>
+            <button kendoGridRemoveCommand>Remove</button>
+            <button kendoGridSaveCommand >
+                {{ isNew ? "Add" : "Update" }}
+            </button>
+            <button kendoGridCancelCommand>
+                {{ isNew ? "Discard changes" : "Cancel" }}
+            </button>
+    </ng-template>
+    </kendo-grid-command-column>
+
+    <kendo-grid-excel fileName="Employee.xlsx" [fetchData]="allData"></kendo-grid-excel>
+    <kendo-grid-pdf fileName="Products.pdf" [delay]="1000" [allPages]="true" paperSize="A4" [repeatHeaders]="true"
+        [landscape]="true">
+    </kendo-grid-pdf>
+</kendo-grid>
+<div>

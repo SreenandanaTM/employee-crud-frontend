@@ -1,4 +1,4 @@
-@import  "@progress/kendo-theme-classic/dist/classic-main-dark.css";
+@import  "@progress/kendo-theme-classic/dist/classic-lavender.css";
 
 ::ng-deep .k-grid {
     background:darksalmon !important ;

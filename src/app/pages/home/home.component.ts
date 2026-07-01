@@ -7,11 +7,12 @@ import { ExcelExportData } from '@progress/kendo-angular-excel-export';
 import { debounceTime, Subject } from 'rxjs';
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
 import *as XLSX from 'xlsx';
+import { EditGridComponent } from '../edit-grid/edit-grid.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ReactiveFormsModule, KENDO_TEXTBOX, KENDO_GRID, ButtonsModule,KENDO_GRID_EXCEL_EXPORT,KENDO_GRID_PDF_EXPORT],
+  imports: [ReactiveFormsModule, KENDO_TEXTBOX, KENDO_GRID, ButtonsModule,KENDO_GRID_EXCEL_EXPORT,KENDO_GRID_PDF_EXPORT,EditGridComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -258,6 +259,26 @@ export class HomeComponent {
   },0)
  }
 
+
+
+//  color coding for status cell
+
+
+statusColor(status: string): string {
+    let color;
+
+    if (status == 'Pending') {
+      color = "yellow"; 
+    } else if (status == 'Completed') {
+      color = "green";
+    } else if(status == 'Due') {
+      color = "orange"; 
+    }else{
+      color = "red"; 
+    }
+
+    return color;
+  }
 }
 
 

@@ -72,7 +72,7 @@
 
         <!-- kendo grid -->
         <kendo-grid #grid [sortable]="true" [pageable]="true" filterable="menu" [pageSize]="pageSize" [skip]="skip"
-            (pageChange)="pageChange($event)" [data]="gridData()" height]="295">
+            (pageChange)="pageChange($event)" [data]="gridData()" [height]="700">
             <ng-template kendoGridToolbarTemplate>
                 <button id="excelExp" type="button" kendoGridExcelCommand>
                     Export to Excel
@@ -81,18 +81,29 @@
                     Export to PDF
                 </button>
             </ng-template>
-            <kendo-grid-column [filterable]="false" field="id" title="Employee ID" [width]="80"></kendo-grid-column>
-            <kendo-grid-column [filterable]="false" field="name" title="Name" [width]="150"></kendo-grid-column>
-            <kendo-grid-column [filterable]="false" field="email" title="Email" [width]="150"></kendo-grid-column>
-            <kendo-grid-column field="department" filterVariant="multiCheckbox" title="Department"
-                [width]="100"></kendo-grid-column>
-            <kendo-grid-column field="designation" filterVariant="multiCheckbox" title="Designation"
-                [width]="100"></kendo-grid-column>
-            <kendo-grid-column filterVariant="multiCheckbox" filter="numeric" field="salary" title="Salary"
-                [width]="100"></kendo-grid-column>
-            <kendo-grid-column field="location" title="Location" filterVariant="multiCheckbox"
-                [width]="100"></kendo-grid-column>
-            <kendo-grid-column title="Action" [width]="120">
+            <kendo-grid-column [headerStyle]="{ 'background-color': '#555' }" [filterable]="false" field="id"
+                title="Employee ID" [width]="80"></kendo-grid-column>
+            <kendo-grid-column [headerStyle]="{ 'background-color': '#555' }" [filterable]="false" field="name"
+                title="Name" [width]="100"></kendo-grid-column>
+            <kendo-grid-column [headerStyle]="{ 'background-color': '#555' }" [filterable]="false" field="email"
+                title="Email" [width]="150"></kendo-grid-column>
+            <kendo-grid-column [headerStyle]="{ 'background-color': '#555' }" field="department"
+                filterVariant="multiCheckbox" title="Department" [width]="100"></kendo-grid-column>
+            <kendo-grid-column [headerStyle]="{ 'background-color': '#555' }" field="designation"
+                filterVariant="multiCheckbox" title="Designation" [width]="100"></kendo-grid-column>
+            <kendo-grid-column [headerStyle]="{ 'background-color': '#555' }" filterVariant="multiCheckbox"
+                filter="numeric" field="salary" title="Salary" [width]="100"></kendo-grid-column>
+            <kendo-grid-column [headerStyle]="{ 'background-color': '#555' }" field="location" title="Location"
+                filterVariant="multiCheckbox" [width]="100"></kendo-grid-column>
+            <kendo-grid-column [headerStyle]="{ 'background-color': '#555' }" field="status" title="Status"
+                filterVariant="multiCheckbox" [width]="100">
+                <ng-template kendoGridCellTemplate let-dataItem>
+                    <span class="whole-cell" [style.backgroundColor]="statusColor(dataItem.status)">
+                        {{ dataItem.status }}
+                    </span>
+                </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column [headerStyle]="{ 'background-color': '#555' }" title="Action" [width]="140">
                 <ng-template kendoGridCellTemplate let-dataItem>
                     <button kendoButton id="update" (click)="getEmpDetails(dataItem.id)">Update</button>
                     <button kendoButton id="delete" (click)="removeEmp(dataItem.id)">Delete</button>
@@ -103,5 +114,10 @@
             </kendo-grid-pdf>
         </kendo-grid>
     </div>
+
+
+  <app-edit-grid></app-edit-grid>
+
+    
 
 </div>

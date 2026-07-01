@@ -1,4 +1,47 @@
 .whole-cell {
-        display: block;
-        padding: 11px 10px; 
-      }
+    display: block;
+    padding: 11px 10px;
+    color: white;
+}
+
+.k-grid {
+    background: darksalmon !important;
+    margin-bottom: 150px;
+}
+#excelExp{
+    background-color:rgb(57, 141, 189);
+    border-radius: 10px;
+    border: none;
+    padding: 8px;
+    margin: 5px;
+}
+#pdfExp{
+    background-color:rgb(196, 153, 60);
+    border-radius: 10px;
+    border: none;
+    padding: 8px;
+    margin: 5px;
+}
+#add{
+    background-color:rgb(148, 196, 60);
+    border-radius: 10px;
+    border: none;
+    padding: 8px;
+    margin: 5px;
+}
+#edit{
+    background-color:green;
+    border-radius: 10px;
+    border: none;
+    padding: 8px;
+    margin: 5px;
+     color: white;
+}
+#remove{
+    background-color:red;
+    border-radius: 10px;
+    border: none;
+    padding: 8px;
+    margin: 5px;
+     color: white;
+}

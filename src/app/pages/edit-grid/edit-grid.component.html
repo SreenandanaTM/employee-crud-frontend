@@ -4,11 +4,11 @@
 <kendo-grid [kendoGridReactiveEditing]="createFormGroup" [height]="700" [filterable]="true" [pageSize]="10" [pageable]="true" [sortable]="true"
     [kendoGridBinding]="allEmployees()">
     <ng-template kendoGridToolbarTemplate>
-                <button kendoGridAddCommand>Add new</button>
-        <button type="button" kendoGridExcelCommand [svgIcon]="fileExcelIcon">
+                <button id="add" kendoGridAddCommand>Add new</button>
+        <button id="excelExp" type="button" kendoGridExcelCommand [svgIcon]="fileExcelIcon">
             Export to Excel
         </button>
-          <button kendoGridPDFCommand [svgIcon]="filePdfIcon">
+          <button id="pdfExp" kendoGridPDFCommand [svgIcon]="filePdfIcon">
           Export to PDF
         </button>
     </ng-template>
@@ -32,8 +32,8 @@
 
     <kendo-grid-command-column [width]="220"> 
     <ng-template kendoGridCellTemplate let-isNew="isNew">
-    <button kendoGridEditCommand themeColor="primary">Edit</button>
-            <button kendoGridRemoveCommand>Remove</button>
+    <button id="edit" kendoGridEditCommand themeColor="primary">Edit</button>
+            <button id="remove" kendoGridRemoveCommand>Remove</button>
             <button kendoGridSaveCommand >
                 {{ isNew ? "Add" : "Update" }}
             </button>
